@@ -8,6 +8,7 @@ def parse_input():
          if m:
              yield int(m[1]), int(m[2]), str(m[3]), m[4]
 
+
 def part1():
     passes = 0
     for mini, maxi, letter, password in parse_input():        
@@ -16,6 +17,7 @@ def part1():
             passes += 1
     print(passes)
 
+
 def part2():
     passes = 0
     for mini, maxi, letter, password in parse_input():
@@ -23,7 +25,6 @@ def part2():
         if (password[mini - 1] == letter or password[maxi - 1] == letter):
             if password[mini - 1] != password[maxi - 1]:
                 passes += 1
-    print(passes)
 
 
 part1()
