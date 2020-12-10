@@ -30,8 +30,6 @@ def update_contents(bag_list, orig_bag):
         new_bags = bag_list[bag[1]]
         for n in new_bags:
             new_contents.append((bag[0] * n[0], n[1]))
-        else:
-            cnt += bag[0]
     return new_contents, cnt
 
 
@@ -60,23 +58,42 @@ def part1(in_f, target="shiny gold"):
 
 def part2(in_f, target="shiny gold"):
     bags = parse_input(in_f)
-#    print(bags)
+    print(bags)
 
     remaining_bags = bags[target]    
     cnt = sum([b[0] for b in remaining_bags])
     print(remaining_bags)
    
     itr = 0
-    while itr < 5 and len(remaining_bags) > 0:
+    while itr < 1 and len(remaining_bags) > 0:
         remaining_bags, i =  update_contents(bags, remaining_bags)
         cnt += i
         print(cnt, i, remaining_bags)
         itr += 1
     return cnt
 
-#print(parse_input("test7.txt"))
-assert(part1("test7.txt") == 4)
-assert(part1("input7.txt") == 261)
-#assert(part2("test7a.txt") == 126)
-print(part2("input7.txt"))
+def test_day7():
+    assert(part1("test7.txt") == 4)
+    assert(part1("input7.txt") == 261)
+    
+    b_list = {'vibrant plum': [(5, 'faded blue'), (6, 'dotted black')], 'faded blue': [], 'dotted black': []}
+    v_b = b_list['vibrant plum']
+    b, cnt = update_contents(b_list, v_b)
+    assert cnt == 11
+    
+    cnt = 0
+    loops = 0 
+    v_b = b_list['vibrant plum']
+    while v_b != []:
+        v_b, b_cnt = update_contents(b_list, v_b)
+        print(v_b)
+        cnt += b_cnt
+        loops += 1
+    assert cnt == 11
+    assert loops == 1
+    print(part2("test7a.txt"))
+    assert(part2("test7a.txt") == 126)
+
+test_day7()
+#print(part2("input7.txt"))
 
